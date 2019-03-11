@@ -7,7 +7,7 @@ use CallLogDrawer_Graph;
 use CallLogDrawer_DotDump;
 
 my $inp = undef;
-my $binfile = undef;
+my $binfile = 'a.out';
 my $outformat = 'dot';      # dot | dump
 
 GetOptions(
@@ -16,10 +16,12 @@ GetOptions(
     "f=s" => \$inp,
     "h|help" => sub {
         my $helptext = <<END_OF_HELP;
-Usage: rtcalls_draw.pl -e BINFILE [option(s)]
+Usage: rtcalls_draw.pl [option(s)]
  Dump a text description of runtime call graph (dot source file by default) to stdout 
- utilizing symbols from BINFILE.
+ utilizing symbols from binary executable.
  The options are:
+  -e BINFILE Use symbols from binary executable BINFILE.
+             The default is 'a.out'.
   -T FORMAT  Use the output FORMAT. 
              FORMAT can be 'dot' or 'dump'. The default is 'dot'.
   -f LOGPATH Read the call log from LOGPATH. 
