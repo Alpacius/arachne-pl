@@ -61,6 +61,7 @@ sub log_iterate {
         caller => funcinfo_from_addr($self, $callsitep)
     };
     print "iterate.r=".Dumper($r);
+    $r
 }
 
 1;
