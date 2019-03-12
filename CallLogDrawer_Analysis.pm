@@ -11,20 +11,11 @@ my $anafuncs = {
         } else {
             return ('#', '#', '#');
         }
-    },
-    atos => sub {
-        my ($res) = @_;
-        if ($res =~ /\s*([_a-zA-Z][_a-zA-Z0-9]*)\s+\(.+?\)\s+\((.+):([0-9]+)\)/) {
-            return ($1, $2, $3);
-        } else {
-            return ('#', '#', '#');
-        }
     }
 };
 
 my $anacmds = {
-    addr2line => 'LANG=c addr2line -fps -e ',
-    atos => 'LANG=c atos -o '
+    addr2line => 'LANG=c addr2line -fps -e '
 };
 
 sub new {

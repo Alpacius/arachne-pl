@@ -22,13 +22,15 @@ Usage: rtcalls_draw.pl [option(s)]
  Dump a text description of runtime call graph (dot source file by default) to stdout 
  utilizing symbols from binary executable.
  The options are:
-  -e BINFILE Use symbols from binary executable BINFILE.
-             The default is 'a.out'.
-  -T FORMAT  Use the output FORMAT. 
-             FORMAT can be 'dot' or 'dump'. The default is 'dot'.
-  -f LOGPATH Read the call log from LOGPATH. 
-             The default is the standard input.
-  -h, --help Display this information.
+  -e BINFILE           Use symbols from binary executable BINFILE.
+                       The default is 'a.out'.
+  -T FORMAT            Use the output FORMAT. 
+                       FORMAT can be 'dot' or 'dump'. The default is 'dot'.
+  -f LOGPATH           Read the call log from LOGPATH. 
+                       The default is the standard input.
+  -h, --help           Display this information.
+  -d, --driver=DRIVER  Use DRIVER for address-to-symbol conversion.
+                       Currently the only DRIVER supported is 'addr2line'. The default is 'addr2line'.
 END_OF_HELP
         print $helptext;
         exit 0;
@@ -48,8 +50,7 @@ my $output_ops = {
 };
 
 my $anadriv_check = {
-    addr2line => 1, 
-    atos => 1
+    addr2line => 1
 };
 
 sub just_die {
