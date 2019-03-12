@@ -15,7 +15,7 @@ GetOptions(
     "T=s" => \$outformat,
     "e=s" => \$binfile,
     "f=s" => \$inp,
-    "d|driver" => \$anadriv,
+    "d|driver=s" => \$anadriv,
     "h|help" => sub {
         my $helptext = <<END_OF_HELP;
 Usage: rtcalls_draw.pl [option(s)]
