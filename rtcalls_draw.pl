@@ -9,11 +9,13 @@ use CallLogDrawer_DotDump;
 my $inp = undef;
 my $binfile = 'a.out';
 my $outformat = 'dot';      # dot | dump
+my $anadriv = 'addr2line';  # addr2line | atos
 
 GetOptions(
     "T=s" => \$outformat,
     "e=s" => \$binfile,
     "f=s" => \$inp,
+    "d|driver" => \$anadriv,
     "h|help" => sub {
         my $helptext = <<END_OF_HELP;
 Usage: rtcalls_draw.pl [option(s)]
@@ -45,6 +47,11 @@ my $output_ops = {
     }
 };
 
+my $anadriv_check = {
+    addr2line => 1, 
+    atos => 1
+};
+
 sub just_die {
     my ($msg) = @_;
     print "$msg\n";
@@ -54,8 +61,10 @@ sub just_die {
 just_die "No binary image specified -- aborted." if (not defined $binfile);
 just_die "Binary image $binfile does not exist -- aborted." if (not -e $binfile);
 just_die "Output format $outformat not supported -- use 'dot' or 'dump'. " if (not exists $output_ops->{$outformat});
+just_die "No analysis driver specified -- aborted." if (not defined $anadriv);
+just_die "Analysis driver $anadriv not supported -- see help for more info." if (not exists $anadriv_check->{$anadriv});
 
-my $iter = CallLogDrawer_LogIter->new($binfile, $inp);
+my $iter = CallLogDrawer_LogIter->new($binfile, $inp, $anadriv);
 my $graph = CallLogDrawer_Graph->new;
 while (my $callinfo = <$iter>) {
     $graph->add_callinfo($callinfo->{caller}, $callinfo->{callee});
