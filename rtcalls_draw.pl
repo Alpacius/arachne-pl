@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
-use lib '.';
+use File::Basename;
+use lib dirname(__FILE__);
 use Getopt::Long;
 use CallLogDrawer_LogIter;
 use CallLogDrawer_Graph;

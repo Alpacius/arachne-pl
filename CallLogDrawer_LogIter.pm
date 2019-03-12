@@ -1,6 +1,7 @@
 package CallLogDrawer_LogIter;
 
-use lib '.';
+use File::Basename;
+use lib dirname(__FILE__);
 use IPC::Open2;
 use CallLogDrawer_LogIterConf;
 use CallLogDrawer_Analysis;
@@ -21,7 +22,6 @@ sub new {
         open($fh, "<", $infpath) or die "Failed to open $infpath: $!";
     }
     my ($ana_out, $ana_in);
-    #my $pid = open2($ana_out, $ana_in, "LANG=c addr2line -fps -e $bin");
     my $pid = open2($ana_out, $ana_in, CallLogDrawer_Analysis::anacmd($adriv, $bin));
     $ana_out->autoflush;
     $ana_in->autoflush;
@@ -48,7 +48,6 @@ sub log_iterate {
     my $in = $self->{in};
     my $logline = <$in>;
     if (not defined $logline) {
-        #print "End-of-Input reached. Stop scanning.\n";
         close $self->{ana_in};
         return undef;
     }
@@ -59,7 +58,6 @@ sub log_iterate {
         callee => funcinfo_from_addr($self, $calleep),
         caller => funcinfo_from_addr($self, $callsitep)
     };
-    #print "iterate.r=".Dumper($r);
     $r
 }
 
