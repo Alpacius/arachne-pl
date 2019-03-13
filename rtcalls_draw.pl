@@ -31,13 +31,12 @@ Usage: rtcalls_draw.pl [option(s)]
                        The default is the standard input.
   -h, --help           Display this information.
   -d, --driver=DRIVER  Use DRIVER for address-to-symbol conversion.
-                       Currently the only DRIVER supported is 'addr2line'. The default is 'addr2line'.
+                       Currently DRIVER may be 'addr2line' or 'llvm-symbolizer'. The default is 'addr2line'.
 END_OF_HELP
         print $helptext;
         exit 0;
     }
 );
-
 
 my $output_ops = {
     dot => sub {
@@ -51,7 +50,8 @@ my $output_ops = {
 };
 
 my $anadriv_check = {
-    addr2line => 1
+    addr2line => 1,
+    'llvm-symbolizer' => 1
 };
 
 sub just_die {

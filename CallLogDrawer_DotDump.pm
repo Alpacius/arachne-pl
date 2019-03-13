@@ -6,11 +6,12 @@ our @EXPORT_OK = qw( do_dump );
 sub dump_edge {
     my ($edge) = @_;
     my ($caller, $callee) = ($edge->{caller}, $edge->{callee});
+    my $column_info = defined $edge->{column} ? ':' . $edge->{column} : '';
     sprintf "%s->%s [ label=\"0x%x|%s\\ncount:%d\",fontsize=10 ];",
         $caller->{id},
         $callee->{id},
         $edge->{site},
-        $caller->{srcfile} . ':' . $edge->{lineno},
+        $caller->{srcfile} . ':' . $edge->{lineno} . $column_info,
         $edge->{count};
 }
 
