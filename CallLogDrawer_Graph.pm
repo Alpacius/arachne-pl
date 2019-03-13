@@ -39,7 +39,14 @@ sub siteinfo_eq {
 
 sub make_callinfo {
     my ($caller, $callee) = @_;
-    { caller => $caller, callee => $callee, site => $caller->{site}, lineno => $caller->{lineno}, count => 1 }
+    { 
+        caller => $caller, 
+        callee => $callee, 
+        site => $caller->{site}, 
+        lineno => $caller->{lineno}, 
+        count => 1,
+        column => $caller->{column}
+    }
 }
 
 sub make_funcinfo {

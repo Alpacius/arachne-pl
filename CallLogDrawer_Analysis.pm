@@ -17,7 +17,6 @@ my $anafuncs = {
     'llvm-symbolizer' => sub {
         my ($res) = @_;
         if ($res =~ /\s*([_A-Za-z][_A-Za-z0-9]*)\s*at\s*(.+):([0-9]+):([0-9]+)/) {
-            print "$res $1 $2 $3 $4\n";
             return ($1, File::Spec->abs2rel($2), $3, $4);
         } else {
             return ('#', '#', '#', undef);
@@ -37,18 +36,17 @@ sub new {
     $r
 }
 
-use Data::Dumper;
 
 sub analyze {
     my ($self, $ana_out, $ana_in, $ptr) = @_;
     print $ana_in sprintf("0x%x\n", $ptr);
-    my $res = <$ana_out>;
-    print "Match begins: res=$res";
-    chomp $res;
+    my $res; 
+    do {
+        $res = <$ana_out>;
+        chomp $res;
+    } while ($res =~ /^\s*$/);
     my ($func, $srcfile, $lineno, $column) = $self->{anasub}->($res);
-    my $r = { func => $func, srcfile => $srcfile, lineno => $lineno, site => $ptr, column => $column };
-    print Dumper($r);
-    $r
+    { func => $func, srcfile => $srcfile, lineno => $lineno, site => $ptr, column => $column };
 }
 
 sub anacmd {

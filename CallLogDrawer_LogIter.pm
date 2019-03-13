@@ -5,7 +5,6 @@ use lib dirname(__FILE__);
 use IPC::Open2;
 use CallLogDrawer_LogIterConf;
 use CallLogDrawer_Analysis;
-use Data::Dumper;
 
 use overload
     '<>' => log_iterate;
