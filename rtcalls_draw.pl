@@ -9,8 +9,8 @@ use CallLogDrawer_DotDump;
 
 my $inp = undef;
 my $binfile = 'a.out';
-my $outformat = 'dot';      # dot | dump
-my $anadriv = 'addr2line';  # addr2line | atos
+my $outformat = 'dot';
+my $anadriv = 'addr2line';
 
 GetOptions(
     "T=s" => \$outformat,
